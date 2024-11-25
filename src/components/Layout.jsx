@@ -4,10 +4,12 @@ import Header from "./Header";
 
 const Layout = () => {
   return (
-    <>
+    <div className="h-full bg-gray-100 flex flex-col justify-between">
       <Header />
-      <Outlet />
-    </>
+      <main className="container mx-auto pt-10 main">
+        <Outlet />
+      </main>
+    </div>
   );
 };
 
