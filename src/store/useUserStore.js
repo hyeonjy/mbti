@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { login, updateProfile } from "../api/auth";
-import Cookies from "js-cookie";
 
 const useUserStore = create(
   persist(
@@ -16,11 +15,9 @@ const useUserStore = create(
             password: data.password,
           });
 
-          Cookies.set("accessToken", responseData.accessToken, {
-            path: "/",
-            secure: false,
-            sameSite: "strict",
-          });
+          console.log("response data: ", responseData);
+
+          localStorage.setItem("accessToken", responseData.accessToken);
           set({
             isAuthenticated: true,
             nickname: responseData.nickname,
@@ -32,9 +29,8 @@ const useUserStore = create(
       },
 
       profileUpdate: async (formData) => {
-        const token = Cookies.get("accessToken");
         try {
-          const responseData = await updateProfile(token, formData);
+          const responseData = await updateProfile(formData);
           set({ nickname: responseData.nickname });
           return responseData;
         } catch (error) {
@@ -44,7 +40,7 @@ const useUserStore = create(
       },
 
       logout: () => {
-        Cookies.remove("accessToken");
+        localStorage.removeItem("accessToken");
         set({ isAuthenticated: false, nickname: null });
       },
     }),

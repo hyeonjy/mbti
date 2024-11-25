@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import useUserStore from "../store/useUserStore";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { nickname: initialNickname, profileUpdate } = useUserStore();
   const [nickname, setNickname] = useState(initialNickname || "");
+  const navigate = useNavigate();
 
   const onChange = (event) => {
     setNickname(event.target.value);
@@ -24,6 +26,14 @@ const Profile = () => {
       }
     } catch (error) {
       console.log("프로필 업데이트 실패", error);
+
+      // 토큰 만료시 로그아웃 처리
+      if (error.message.includes("Token expired")) {
+        const { logout } = useUserStore.getState();
+        logout();
+
+        navigate("/login");
+      }
     }
   };
   console.log("nickname: ", nickname);
