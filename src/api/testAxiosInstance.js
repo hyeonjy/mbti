@@ -18,7 +18,6 @@ testAxiosInstance.interceptors.request.use(
         console.log("토큰이 만료되었습니다.");
         return Promise.reject(new Error("Token expired"));
       }
-
       config.headers.Authorization = `Bearer ${token}`;
     }
 
