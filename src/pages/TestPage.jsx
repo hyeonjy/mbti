@@ -5,6 +5,7 @@ import { createTestResult } from "../api/testResults";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import { getFormattedDate } from "../utils/dateUtils";
+import useTokenExpire from "../hooks/useTokenExpire";
 
 const TestPage = ({ user }) => {
   const navigate = useNavigate();
@@ -14,19 +15,30 @@ const TestPage = ({ user }) => {
     user: { userId, nickname },
   } = useUserStore();
 
+  const handleExpire = useTokenExpire();
+
   const handleTestSubmit = async (answers) => {
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다.*/
     const mbtiResult = calculateMBTI(answers);
     console.log("mbtiResult:", mbtiResult);
     const date = getFormattedDate();
 
-    await createTestResult({
-      userId,
-      nickname,
-      mbti: mbtiResult,
-      date,
-      visibility: true,
-    });
+    try {
+      await createTestResult({
+        userId,
+        nickname,
+        mbti: mbtiResult,
+        date,
+        visibility: true,
+      });
+    } catch (error) {
+      console.log("테스트 제출 실패", error);
+
+      // 토큰 만료시 로그아웃 처리
+      if (error.message.includes("Token expired")) {
+        handleExpire();
+      }
+    }
 
     setResult(mbtiResult);
   };

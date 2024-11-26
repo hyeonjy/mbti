@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { mbtiDescriptions } from "../utils/mbtiCalculator";
 import { updateTestResultVisibility } from "../api/testResults";
+import useTokenExpire from "../hooks/useTokenExpire";
 
 const TestResultItem = ({ result, userId, handleDelete }) => {
   const [visibility, setVisibility] = useState(result.visibility);
+
+  const handleExpire = useTokenExpire();
 
   const handleToggleVisibility = async () => {
     try {
@@ -11,6 +14,11 @@ const TestResultItem = ({ result, userId, handleDelete }) => {
       setVisibility((prev) => !prev);
     } catch (error) {
       console.error("(비)공개 전환 실패:", error);
+
+      // 토큰 만료시 로그아웃 처리
+      if (error.message.includes("Token expired")) {
+        handleExpire();
+      }
     }
   };
 

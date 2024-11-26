@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { deleteTestResult, getTestResults } from "../api/testResults";
 import useUserStore from "../store/useUserStore";
 import TestResultList from "../components/TestResultList";
+import useTokenExpire from "../hooks/useTokenExpire";
 
 const TestResultPage = () => {
   const [results, setResults] = useState("");
@@ -9,10 +10,21 @@ const TestResultPage = () => {
     user: { userId },
   } = useUserStore();
 
+  const handleExpire = useTokenExpire();
+
   useEffect(() => {
     const fetchResults = async () => {
-      const data = await getTestResults();
-      setResults(data);
+      try {
+        const data = await getTestResults();
+        setResults(data);
+      } catch (error) {
+        console.log("테스트 제출 실패", error);
+
+        // 토큰 만료시 로그아웃 처리
+        if (error.message.includes("Token expired")) {
+          handleExpire();
+        }
+      }
     };
 
     fetchResults();
@@ -24,6 +36,11 @@ const TestResultPage = () => {
       setResults((prev) => prev.filter((result) => result.id !== id));
     } catch (error) {
       console.error("삭제 실패:", error);
+
+      // 토큰 만료시 로그아웃 처리
+      if (error.message.includes("Token expired")) {
+        handleExpire();
+      }
     }
   };
 

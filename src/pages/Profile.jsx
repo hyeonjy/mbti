@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../api/auth";
+import useTokenExpire from "../hooks/useTokenExpire";
 
 const Profile = () => {
   const {
@@ -10,6 +11,8 @@ const Profile = () => {
   } = useUserStore();
   const [nickname, setNickname] = useState(initialNickname || "");
   const navigate = useNavigate();
+
+  const handleExpire = useTokenExpire();
 
   const onChange = (event) => {
     setNickname(event.target.value);
@@ -34,10 +37,7 @@ const Profile = () => {
 
       // 토큰 만료시 로그아웃 처리
       if (error.message.includes("Token expired")) {
-        const { logout } = useUserStore.getState();
-        logout();
-
-        navigate("/login");
+        handleExpire();
       }
     }
   };
