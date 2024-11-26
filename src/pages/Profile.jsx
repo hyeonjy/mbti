@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../api/auth";
 
 const Profile = () => {
   const {

@@ -17,17 +17,17 @@ const TestPage = ({ user }) => {
   const handleTestSubmit = async (answers) => {
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다.*/
     const mbtiResult = calculateMBTI(answers);
-    console.log("mbtiREsult:", mbtiResult);
-
+    console.log("mbtiResult:", mbtiResult);
     const date = getFormattedDate();
 
-    const data = await createTestResult({
+    await createTestResult({
       userId,
       nickname,
       mbti: mbtiResult,
       date,
       visibility: true,
     });
+
     setResult(mbtiResult);
   };
 
