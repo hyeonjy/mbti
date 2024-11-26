@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/testResults";
+const API_URL = "http://localhost:4000/testResults";
 
 export const getTestResults = async () => {
   const response = await axios.get(API_URL);
@@ -8,8 +8,9 @@ export const getTestResults = async () => {
 };
 
 export const createTestResult = async (resultData) => {
-  const { data } = await axios.post(`${API_URL}/testResults`, resultData);
+  const { data } = await axios.post(`${API_URL}`, resultData);
   console.log("create data: ", data);
+  return data;
 };
 
 export const deleteTestResult = async (id) => {};

@@ -7,6 +7,7 @@ const useUserStore = create(
     (set, get) => ({
       isAuthenticated: false,
       nickname: null,
+      id: null,
 
       login: async (data) => {
         try {
@@ -21,6 +22,7 @@ const useUserStore = create(
           set({
             isAuthenticated: true,
             nickname: responseData.nickname,
+            id: data.id,
           });
         } catch (error) {
           console.error("Login error:", error);
@@ -41,7 +43,7 @@ const useUserStore = create(
 
       logout: () => {
         localStorage.removeItem("accessToken");
-        set({ isAuthenticated: false, nickname: null });
+        set({ isAuthenticated: false, nickname: null, id: null });
       },
     }),
     {
@@ -49,6 +51,7 @@ const useUserStore = create(
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         nickname: state.nickname,
+        id: state.id,
       }),
     }
   )

@@ -1,8 +1,11 @@
 {
   "testResults": [
     {
-      "name": "kim",
-      "mbti": "ISTP"
+      "id": "0d98",
+      "nickname": "토끼^^!",
+      "mbti": "ESTJ",
+      "date": "2024. 11. 26. 오후 01:42:13",
+      "visibility": true
     }
   ]
 }
