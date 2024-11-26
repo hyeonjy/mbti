@@ -9,10 +9,12 @@ export const getTestResults = async () => {
 
 export const createTestResult = async (resultData) => {
   const { data } = await axios.post(`${API_URL}`, resultData);
-  console.log("create data: ", data);
   return data;
 };
 
 export const deleteTestResult = async (id) => {};
 
-export const updateTestResultVisibility = async (id, visibility) => {};
+export const updateTestResultVisibility = async (id, visibility) => {
+  const { data } = await axios.patch(`${API_URL}/${id}`, { visibility });
+  return data;
+};

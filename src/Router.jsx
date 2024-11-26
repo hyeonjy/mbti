@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import TestResultPage from "./pages/TestResultPage";
-import ProtectedRoute from "./components/\bProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Router = () => {
   return (

@@ -3,7 +3,10 @@ import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { nickname: initialNickname, profileUpdate } = useUserStore();
+  const {
+    user: { nickname: initialNickname },
+    profileUpdate,
+  } = useUserStore();
   const [nickname, setNickname] = useState(initialNickname || "");
   const navigate = useNavigate();
 
@@ -18,6 +21,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append("nickname", nickname);
       const response = await profileUpdate(formData);
+      console.log("form nickname: ", formData);
 
       if (response.success) {
         alert("닉네임이 변경되었습니다.");

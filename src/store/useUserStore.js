@@ -6,8 +6,10 @@ const useUserStore = create(
   persist(
     (set, get) => ({
       isAuthenticated: false,
-      nickname: null,
-      id: null,
+      user: {
+        userId: null,
+        nickname: null,
+      },
 
       login: async (data) => {
         try {
@@ -19,10 +21,13 @@ const useUserStore = create(
           console.log("response data: ", responseData);
 
           localStorage.setItem("accessToken", responseData.accessToken);
+
           set({
             isAuthenticated: true,
-            nickname: responseData.nickname,
-            id: data.id,
+            user: {
+              userId: data.id,
+              nickname: responseData.nickname,
+            },
           });
         } catch (error) {
           console.error("Login error:", error);
@@ -33,7 +38,13 @@ const useUserStore = create(
       profileUpdate: async (formData) => {
         try {
           const responseData = await updateProfile(formData);
-          set({ nickname: responseData.nickname });
+          set((state) => ({
+            ...state,
+            user: {
+              ...state.user,
+              nickname: responseData.nickname,
+            },
+          }));
           return responseData;
         } catch (error) {
           console.log("프로필 업데이트 실패: ", error);
@@ -43,15 +54,23 @@ const useUserStore = create(
 
       logout: () => {
         localStorage.removeItem("accessToken");
-        set({ isAuthenticated: false, nickname: null, id: null });
+        set({
+          isAuthenticated: false,
+          user: {
+            userId: null,
+            nickname: null,
+          },
+        });
       },
     }),
     {
       name: "user",
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
-        nickname: state.nickname,
-        id: state.id,
+        user: {
+          userId: state.user?.userId,
+          nickname: state.user?.nickname,
+        },
       }),
     }
   )

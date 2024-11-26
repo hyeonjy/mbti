@@ -9,7 +9,10 @@ import { getFormattedDate } from "../utils/dateUtils";
 const TestPage = ({ user }) => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
-  const { id, nickname } = useUserStore();
+  const {
+    id,
+    user: { userId, nickname },
+  } = useUserStore();
 
   const handleTestSubmit = async (answers) => {
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다.*/
@@ -19,6 +22,7 @@ const TestPage = ({ user }) => {
     const date = getFormattedDate();
 
     const data = await createTestResult({
+      userId,
       nickname,
       mbti: mbtiResult,
       date,
