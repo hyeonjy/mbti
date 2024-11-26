@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { mbtiDescriptions } from "../utils/mbtiCalculator";
 import { updateTestResultVisibility } from "../api/testResults";
 
-const TestResultItem = ({ result, userId, onDelete }) => {
+const TestResultItem = ({ result, userId, handleDelete }) => {
   const [visibility, setVisibility] = useState(result.visibility);
 
   const handleToggleVisibility = async () => {
@@ -13,6 +13,8 @@ const TestResultItem = ({ result, userId, onDelete }) => {
       console.error("(비)공개 전환 실패:", error);
     }
   };
+
+  console.log("rerendering");
 
   return (
     <div className="p-6 bg-gray-800 rounded-lg shadow-lg text-white">
@@ -34,7 +36,7 @@ const TestResultItem = ({ result, userId, onDelete }) => {
             {visibility ? "비공개로 전환" : "공개로 전환"}
           </button>
           <button
-            onClick={() => onDelete(result.id)}
+            onClick={() => handleDelete(result.id)}
             className="bg-red-500 py-2 px-4 rounded-lg text-sm hover:bg-red-600 transition"
           >
             삭제

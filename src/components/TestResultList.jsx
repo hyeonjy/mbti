@@ -2,7 +2,7 @@ import React from "react";
 import TestResultItem from "./TestResultItem";
 import useUserStore from "../store/useUserStore";
 
-const TestResultList = ({ results, onDelete }) => {
+const TestResultList = ({ results, handleDelete }) => {
   const {
     user: { userId },
   } = useUserStore();
@@ -16,7 +16,7 @@ const TestResultList = ({ results, onDelete }) => {
               key={result.id}
               result={result}
               userId={userId}
-              onDelete={onDelete}
+              handleDelete={handleDelete}
             />
           );
         }
