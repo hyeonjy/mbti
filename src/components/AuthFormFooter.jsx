@@ -5,6 +5,7 @@ const AuthFormFooter = ({ mode }) => {
   return (
     <div className="mt-4 text-center">
       <p className="text-gray-600">
+        {/* 회원가입 모드일 경우 */}
         {mode === "signup" ? (
           <>
             이미 계정이 있으신가요?{" "}
@@ -16,6 +17,7 @@ const AuthFormFooter = ({ mode }) => {
             </Link>
           </>
         ) : (
+          // 로그인 모드일 경우
           <>
             계정이 없으신가요?{" "}
             <Link

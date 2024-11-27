@@ -15,6 +15,8 @@ const AuthForm = ({ onSubmit, mode }) => {
   const handleFormSubmit = async (data) => {
     try {
       await onSubmit(data);
+
+      // 모드에 따라 회원가입 후 로그인 페이지로, 로그인 후 메인 페이지로 이동
       if (mode === "signup") {
         navigate("/login");
       } else if (mode === "login") {
@@ -31,10 +33,13 @@ const AuthForm = ({ onSubmit, mode }) => {
         <h1 className="text-3xl font-bold text-primary-color mb-6">
           {mode === "signup" ? "회원가입" : "로그인"}
         </h1>
+
+        {/* 폼 */}
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
           className="space-y-6 bg-gray-50 p-6 rounded-lg shadow-md"
         >
+          {/* 아이디 입력 필드 */}
           <div>
             <input
               type="text"
@@ -46,6 +51,8 @@ const AuthForm = ({ onSubmit, mode }) => {
               <p className="text-red-500 text-sm mt-2">{errors.id.message}</p>
             )}
           </div>
+
+          {/* 비밀번호 입력 필드 */}
           <div>
             <input
               type="password"
@@ -65,6 +72,8 @@ const AuthForm = ({ onSubmit, mode }) => {
               </p>
             )}
           </div>
+
+          {/* 닉네임 입력 필드 (회원가입 모드일 때만 표시) */}
           {mode === "signup" && (
             <div>
               <input
@@ -82,6 +91,8 @@ const AuthForm = ({ onSubmit, mode }) => {
               )}
             </div>
           )}
+
+          {/* 제출 버튼 */}
           <button
             type="submit"
             className="w-full bg-tomato text-white py-3 rounded-lg hover:bg-gray-50 transition duration-300 hover:text-[#FF5A5F]"
@@ -89,6 +100,8 @@ const AuthForm = ({ onSubmit, mode }) => {
             {mode === "signup" ? "회원가입" : "로그인"}
           </button>
         </form>
+
+        {/* 푸터 컴포넌트 */}
         <AuthFormFooter mode={mode} />
       </div>
     </div>
