@@ -19,7 +19,6 @@ const TestResultPage = () => {
         throw err;
       }
     },
-    staleTime: 5 * 60 * 1000,
   });
 
   if (isPending) return <div>Loading...</div>;

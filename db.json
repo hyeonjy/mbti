@@ -14,23 +14,15 @@
       "nickname": "토끼!ㅇ3",
       "mbti": "ESTP",
       "date": "2024. 11. 27. 오전 03:09:29",
-      "visibility": true
-    },
-    {
-      "id": "024f",
-      "userId": "rabit",
-      "nickname": "토끼!ㅇ3",
-      "mbti": "ESTJ",
-      "date": "2024. 11. 27. 오후 09:25:32",
       "visibility": false
     },
     {
-      "id": "3fbd",
+      "id": "2a43",
       "userId": "rabit",
-      "nickname": "토끼!ㅇ3",
-      "mbti": "INTP",
-      "date": "2024. 11. 27. 오후 10:20:28",
-      "visibility": true
+      "nickname": "토끼변경",
+      "mbti": "ENFP",
+      "date": "2024. 11. 27. 오후 10:32:42",
+      "visibility": false
     }
   ]
 }
