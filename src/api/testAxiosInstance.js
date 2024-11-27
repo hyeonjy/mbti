@@ -1,5 +1,6 @@
 import axios from "axios";
 import { isTokenExpired } from "../utils/tokenUtils";
+import { getUserProfile } from "./auth";
 
 const API_URL = "http://localhost:4000/testResults";
 
@@ -14,10 +15,14 @@ testAxiosInstance.interceptors.request.use(
     if (token) {
       console.log("토큰 만료 여부 체크: ", isTokenExpired(token));
 
-      if (isTokenExpired(token)) {
+      // getUserProfile로 토큰 유효성 체크
+      try {
+        await getUserProfile();
+      } catch (error) {
         console.log("토큰이 만료되었습니다.");
         return Promise.reject(new Error("Token expired"));
       }
+
       config.headers.Authorization = `Bearer ${token}`;
     }
 

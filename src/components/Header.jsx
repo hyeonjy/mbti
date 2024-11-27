@@ -8,7 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="bg-primary-color p-4 shadow-md">
+    <header className="w-full bg-primary-color p-4 shadow-md">
       <nav className="container mx-auto flex justify-between items-center text-tomato">
         <Link to="/">홈</Link>
         <div className="space-x-4">
@@ -18,6 +18,7 @@ const Header = () => {
               <Link to="/test">테스트</Link>
               <Link to="/results">결과 보기</Link>
               <button
+                className="bg-tomato text-white px-3 p-2 rounded-md hover:text-gray-300 hover:bg-gray-100 "
                 onClick={() => {
                   logout();
                   navigate("/login");

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import TestForm from "../components/TestForm";
 import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
-import { createTestResult } from "../api/testResults";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import { getFormattedDate } from "../utils/dateUtils";
-import useTokenExpire from "../hooks/useTokenExpire";
+import { useAddTestResult } from "../hooks/useTestActions";
 
 const TestPage = ({ user }) => {
   const navigate = useNavigate();
@@ -15,38 +14,22 @@ const TestPage = ({ user }) => {
     user: { userId, nickname },
   } = useUserStore();
 
-  const handleExpire = useTokenExpire();
+  const { mutate: addMutation } = useAddTestResult();
 
   const handleTestSubmit = async (answers) => {
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다.*/
     const mbtiResult = calculateMBTI(answers);
-    console.log("mbtiResult:", mbtiResult);
     const date = getFormattedDate();
 
-    try {
-      await createTestResult({
-        userId,
-        nickname,
-        mbti: mbtiResult,
-        date,
-        visibility: true,
-      });
-    } catch (error) {
-      console.log("테스트 제출 실패", error);
-
-      // 토큰 만료시 로그아웃 처리
-      if (error.message.includes("Token expired")) {
-        handleExpire();
-      }
-    }
+    addMutation({
+      userId,
+      nickname,
+      mbti: mbtiResult,
+      date,
+      visibility: true,
+    });
 
     setResult(mbtiResult);
-  };
-
-  console.log("result: ", result);
-
-  const handleNavigateToResults = () => {
-    navigate("/results");
   };
 
   return (
@@ -69,8 +52,8 @@ const TestPage = ({ user }) => {
                 "해당 성격 유형에 대한 설명이 없습니다."}
             </p>
             <button
-              onClick={handleNavigateToResults}
-              className="w-full bg-tomato text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 hover:text-[#FF5A5F]"
+              onClick={() => navigate("/results")}
+              className="w-full bg-tomato text-white py-3 rounded-lg font-semibold hover:bg-white transition duration-300 hover:text-[#FF5A5F]"
             >
               결과 페이지로 이동하기
             </button>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -37,9 +38,11 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <button className="inline-block bg-tomato text-white py-2 px-6 rounded-full hover:bg-secondary-color transition mb-4 hover:text-[#FF5A5F]">
-        내 성격 알아보러 가기
-      </button>
+      <Link to="/test">
+        <button className="inline-block bg-tomato text-white py-2 px-6 rounded-full hover:bg-gray-100 transition mb-4 hover:text-[#FF5A5F]">
+          내 성격 알아보러 가기
+        </button>
+      </Link>
     </div>
   );
 };

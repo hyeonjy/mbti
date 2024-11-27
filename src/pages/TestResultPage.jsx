@@ -1,48 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { deleteTestResult, getTestResults } from "../api/testResults";
-import useUserStore from "../store/useUserStore";
+import { getTestResults } from "../api/testResults";
 import TestResultList from "../components/TestResultList";
 import useTokenExpire from "../hooks/useTokenExpire";
+import { useQuery } from "@tanstack/react-query";
 
 const TestResultPage = () => {
-  const [results, setResults] = useState("");
-  const {
-    user: { userId },
-  } = useUserStore();
-
   const handleExpire = useTokenExpire();
 
-  useEffect(() => {
-    const fetchResults = async () => {
+  const { data: results, isPending } = useQuery({
+    queryKey: ["testResults"],
+    queryFn: async () => {
       try {
-        const data = await getTestResults();
-        setResults(data);
-      } catch (error) {
-        console.log("테스트 제출 실패", error);
-
-        // 토큰 만료시 로그아웃 처리
-        if (error.message.includes("Token expired")) {
+        return await getTestResults();
+      } catch (err) {
+        console.log("erro message: ", err.message);
+        if (err.message === "Token expired") {
           handleExpire();
         }
+        throw err;
       }
-    };
+    },
+    staleTime: 5 * 60 * 1000,
+  });
 
-    fetchResults();
-  }, []);
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteTestResult(id);
-      setResults((prev) => prev.filter((result) => result.id !== id));
-    } catch (error) {
-      console.error("삭제 실패:", error);
-
-      // 토큰 만료시 로그아웃 처리
-      if (error.message.includes("Token expired")) {
-        handleExpire();
-      }
-    }
-  };
+  if (isPending) return <div>Loading...</div>;
 
   return (
     <div className="w-full flex flex-col items-center justify-center bg-white shadow-lg rounded-lg p-8">
@@ -50,13 +30,7 @@ const TestResultPage = () => {
         <h1 className="text-3xl font-bold text-primary-color mb-6 text-center">
           모든 테스트 결과
         </h1>
-        {results && (
-          <TestResultList
-            results={results}
-            userId={userId}
-            handleDelete={handleDelete}
-          />
-        )}
+        <TestResultList results={results} />
       </div>
     </div>
   );

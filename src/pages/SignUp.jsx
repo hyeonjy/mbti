@@ -96,9 +96,9 @@ const SignUp = () => {
           </button>
         </form>
 
-        <div className="mt-4">
+        <div className="mt-4 text-center">
           <p className="text-gray-600">
-            계정이 없으신가요?
+            이미 계정이 있으신가요?
             <Link
               to="/login"
               className="text-tomato hover:text-[#5B6471] hover:underline transition"
