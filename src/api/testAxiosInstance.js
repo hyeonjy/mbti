@@ -4,6 +4,7 @@ import { getUserProfile } from "./auth";
 
 const API_URL = "http://localhost:4000/testResults";
 
+// Axios 인스턴스 생성
 const testAxiosInstance = axios.create({
   baseURL: API_URL,
 });
@@ -12,10 +13,11 @@ testAxiosInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem("accessToken");
 
+    // 토큰 만료 여부 체크
     if (token) {
       console.log("토큰 만료 여부 체크: ", isTokenExpired(token));
 
-      // getUserProfile로 토큰 유효성 체크
+      // 토큰의 유효성 확인을 위해 사용자 정보를 요청
       try {
         await getUserProfile();
       } catch (error) {
@@ -23,6 +25,7 @@ testAxiosInstance.interceptors.request.use(
         return Promise.reject(new Error("Token expired"));
       }
 
+      // 요청 헤더에 Authorization 추가
       config.headers.Authorization = `Bearer ${token}`;
     }
 

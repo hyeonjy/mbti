@@ -2,15 +2,17 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { login, updateProfile } from "../api/auth";
 
+// Zustand를 사용한 사용자 상태 관리 스토어 생성
 const useUserStore = create(
   persist(
     (set, get) => ({
-      isAuthenticated: false,
+      isAuthenticated: false, // 사용자 인증 상태
       user: {
-        userId: null,
-        nickname: null,
+        userId: null, // 사용자 ID
+        nickname: null, // 사용자 닉네임
       },
 
+      // 로그인 함수
       login: async (data) => {
         try {
           const responseData = await login({
@@ -22,6 +24,7 @@ const useUserStore = create(
 
           localStorage.setItem("accessToken", responseData.accessToken);
 
+          // 인증 상태와 사용자 정보 설정
           set({
             isAuthenticated: true,
             user: {
@@ -35,9 +38,12 @@ const useUserStore = create(
         }
       },
 
+      // 프로필 업데이트 함수
       profileUpdate: async (formData) => {
         try {
           const responseData = await updateProfile(formData);
+
+          // 상태 업데이트: 닉네임 변경
           set((state) => ({
             ...state,
             user: {
@@ -52,8 +58,11 @@ const useUserStore = create(
         }
       },
 
+      // 로그아웃 함수
       logout: () => {
         localStorage.removeItem("accessToken");
+
+        // 상태 초기화: 인증 상태와 사용자 정보 초기화
         set({
           isAuthenticated: false,
           user: {
@@ -64,8 +73,9 @@ const useUserStore = create(
       },
     }),
     {
-      name: "user",
+      name: "user", // 로컬 스토리지에 저장될 키 이름
       partialize: (state) => ({
+        // 로컬 스토리지에 저장할 상태 선택
         isAuthenticated: state.isAuthenticated,
         user: {
           userId: state.user?.userId,
