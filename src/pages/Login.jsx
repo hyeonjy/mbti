@@ -17,11 +17,10 @@ const Login = () => {
     console.log("Login Data:", data);
     try {
       await login(data);
-      alert("로그인 성공");
+      console.log("로그인 성공");
       navigate("/");
     } catch (error) {
       console.error("Login error:", error);
-      alert("로그인 실패");
     }
   };
 

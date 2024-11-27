@@ -3,6 +3,7 @@ import useUserStore from "../store/useUserStore";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../api/auth";
 import useTokenExpire from "../hooks/useTokenExpire";
+import showAlert from "../utils/showAlert";
 
 const Profile = () => {
   const {
@@ -28,9 +29,11 @@ const Profile = () => {
       console.log("form nickname: ", formData);
 
       if (response.success) {
-        alert("닉네임이 변경되었습니다.");
+        showAlert({
+          title: "닉네임이 변경되었습니다.",
+        });
       } else {
-        alert("닉네임 변경에 실패했습니다.");
+        console.log("닉네임 변경에 실패했습니다.");
       }
     } catch (error) {
       console.log("프로필 업데이트 실패", error);

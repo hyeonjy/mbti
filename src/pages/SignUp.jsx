@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../api/auth";
+import showAlert from "../utils/showAlert";
 
 const SignUp = () => {
   const {
@@ -21,14 +22,14 @@ const SignUp = () => {
         nickname: data.nickname,
       });
       if (responseData.success) {
-        alert("회원가입 성공");
+        showAlert({ title: "회원가입이 완료되었습니다." });
+
         navigate("/login");
       } else {
-        alert("회원가입 실패");
+        console.log("회원가입 실패");
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("회원가입 실패");
     }
   };
 
