@@ -1,20 +1,28 @@
 {
   "testResults": [
     {
-      "id": "7f34",
-      "userId": "rabit",
-      "nickname": "토끼",
-      "mbti": "INFP",
-      "date": "2024. 11. 26. 오후 03:39:40",
-      "visibility": true
-    },
-    {
       "id": "6b59",
       "userId": "rabit7",
       "nickname": "안현희!!",
       "mbti": "ESTJ",
       "date": "2024. 11. 26. 오후 05:09:39",
       "visibility": true
+    },
+    {
+      "id": "4701",
+      "userId": "rabit",
+      "nickname": "토끼!ㅇ3",
+      "mbti": "ESTP",
+      "date": "2024. 11. 27. 오전 03:09:29",
+      "visibility": false
+    },
+    {
+      "id": "2a43",
+      "userId": "rabit",
+      "nickname": "토끼변경",
+      "mbti": "ENFP",
+      "date": "2024. 11. 27. 오후 10:32:42",
+      "visibility": false
     }
   ]
 }

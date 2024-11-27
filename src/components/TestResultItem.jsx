@@ -1,25 +1,20 @@
-import React, { useState } from "react";
 import { mbtiDescriptions } from "../utils/mbtiCalculator";
-import { updateTestResultVisibility } from "../api/testResults";
-import useTokenExpire from "../hooks/useTokenExpire";
+import useUserStore from "../store/useUserStore";
+import {
+  useDeleteTestResult,
+  useVisibilityTestResult,
+} from "../hooks/useTestActions";
 
-const TestResultItem = ({ result, userId, handleDelete }) => {
-  const [visibility, setVisibility] = useState(result.visibility);
+const TestResultItem = ({ result }) => {
+  const {
+    user: { userId },
+  } = useUserStore();
 
-  const handleExpire = useTokenExpire();
+  const { mutate: deleteMutation } = useDeleteTestResult();
+  const { mutate: updateMutation } = useVisibilityTestResult();
 
   const handleToggleVisibility = async () => {
-    try {
-      await updateTestResultVisibility(result.id, !result.visibility);
-      setVisibility((prev) => !prev);
-    } catch (error) {
-      console.error("(비)공개 전환 실패:", error);
-
-      // 토큰 만료시 로그아웃 처리
-      if (error.message.includes("Token expired")) {
-        handleExpire();
-      }
-    }
+    updateMutation({ id: result.id, visibility: !result.visibility });
   };
 
   console.log("rerendering");
@@ -41,10 +36,10 @@ const TestResultItem = ({ result, userId, handleDelete }) => {
             onClick={handleToggleVisibility}
             className="bg-blue-500 py-2 px-4 rounded-lg text-sm hover:bg-blue-600 transition"
           >
-            {visibility ? "비공개로 전환" : "공개로 전환"}
+            {result.visibility ? "비공개로 전환" : "공개로 전환"}
           </button>
           <button
-            onClick={() => handleDelete(result.id)}
+            onClick={() => deleteMutation(result.id)}
             className="bg-red-500 py-2 px-4 rounded-lg text-sm hover:bg-red-600 transition"
           >
             삭제

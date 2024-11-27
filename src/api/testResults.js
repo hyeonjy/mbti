@@ -6,6 +6,7 @@ export const getTestResults = async () => {
 };
 
 export const createTestResult = async (resultData) => {
+  console.log("resultdata: ", resultData);
   const { data } = await testAxiosInstance.post("/", resultData);
   return data;
 };
@@ -15,7 +16,7 @@ export const deleteTestResult = async (id) => {
   return data;
 };
 
-export const updateTestResultVisibility = async (id, visibility) => {
+export const updateTestResultVisibility = async ({ id, visibility }) => {
   const { data } = await testAxiosInstance.patch(`/${id}`, { visibility });
   return data;
 };
