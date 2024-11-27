@@ -6,7 +6,7 @@
       "nickname": "안현희!!",
       "mbti": "ESTJ",
       "date": "2024. 11. 26. 오후 05:09:39",
-      "visibility": false
+      "visibility": true
     },
     {
       "id": "2a43",
@@ -15,22 +15,6 @@
       "mbti": "ENFP",
       "date": "2024. 11. 27. 오후 10:32:42",
       "visibility": false
-    },
-    {
-      "id": "649a",
-      "userId": "rabit7",
-      "nickname": "안현희!!dddddrr",
-      "mbti": "ENTP",
-      "date": "2024. 11. 28. 오전 02:29:59",
-      "visibility": true
-    },
-    {
-      "id": "23b9",
-      "userId": "rabit",
-      "nickname": "토끼ㄱㄱ",
-      "mbti": "INTP",
-      "date": "2024. 11. 28. 오전 03:29:08",
-      "visibility": true
     }
   ]
 }
