@@ -6,7 +6,7 @@ export const signUp = async (userData) => {
 };
 
 export const login = async (userData) => {
-  const response = await axiosInstance.post("/login?expiresIn=10m", userData);
+  const response = await axiosInstance.post("/login?expiresIn=0.2m", userData);
   return response.data;
 };
 
