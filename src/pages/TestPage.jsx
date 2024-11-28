@@ -6,7 +6,7 @@ import useUserStore from "../store/useUserStore";
 import { getFormattedDate } from "../utils/dateUtils";
 import { useAddTestResult } from "../hooks/useTestActions";
 
-const TestPage = ({ user }) => {
+const TestPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null); // 테스트 결과 상태 관리
 
