@@ -18,11 +18,8 @@ const TestPage = () => {
 
   // 테스트 제출 핸들러
   const handleTestSubmit = async (answers) => {
-    // 테스트 결과 계산
     const mbtiResult = calculateMBTI(answers);
-
-    // 현재 날짜 가져오기
-    const date = getFormattedDate();
+    const date = getFormattedDate(); //현재 날짜 가져오기
 
     addMutation({
       userId,
