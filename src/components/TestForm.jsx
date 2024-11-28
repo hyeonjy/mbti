@@ -17,6 +17,9 @@ const TestForm = ({ onSubmit }) => {
     onSubmit(answers);
   };
 
+  // 모든 문항이 체크 됬는지 확인
+  const isComplete = answers.every((a) => a.answer.trim() !== "");
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-white rounded-lg">
       {questions.map((q, index) => (
@@ -46,7 +49,11 @@ const TestForm = ({ onSubmit }) => {
       ))}
       <button
         type="submit"
-        className="w-full bg-tomato text-white py-3 rounded-lg font-semibold hover:bg-white transition duration-300 hover:text-[#FF5A5F]"
+        className={`w-full py-3 rounded-lg font-semibold transition duration-300 ${
+          isComplete
+            ? "bg-tomato text-white hover:bg-white hover:text-[#FF5A5F]"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
       >
         제출하기
       </button>
