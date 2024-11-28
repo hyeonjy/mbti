@@ -6,7 +6,6 @@ const Login = () => {
   const { login } = useUserStore();
 
   const handleLogin = async (data) => {
-    console.log("login data: ", data);
     await login(data);
   };
 

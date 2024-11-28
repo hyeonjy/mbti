@@ -20,8 +20,6 @@ const useUserStore = create(
             password: data.password,
           });
 
-          console.log("response data: ", responseData);
-
           localStorage.setItem("accessToken", responseData.accessToken);
 
           // 인증 상태와 사용자 정보 설정

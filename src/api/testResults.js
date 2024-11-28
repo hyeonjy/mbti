@@ -6,7 +6,6 @@ export const getTestResults = async () => {
 };
 
 export const createTestResult = async (resultData) => {
-  console.log("resultdata: ", resultData);
   const { data } = await testAxiosInstance.post("/", resultData);
   return data;
 };
