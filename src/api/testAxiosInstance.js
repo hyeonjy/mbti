@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getUserProfile } from "./auth";
 
-const API_URL = "http://localhost:4000/testResults";
+const API_URL = "https://diagnostic-far-wisteria.glitch.me/testResults";
 
 // Axios 인스턴스 생성
 const testAxiosInstance = axios.create({
