@@ -9,19 +9,19 @@
       "visibility": true
     },
     {
-      "id": "ea52",
-      "userId": "rabit",
-      "nickname": "토끼ㄱㄱㅇㅇ",
-      "mbti": "ESFJ",
-      "date": "2024. 11. 28. 오전 03:45:24",
-      "visibility": false
-    },
-    {
       "id": "2d50",
       "userId": "rabit",
       "nickname": "토끼ㄱㄱㅇㅇ",
       "mbti": "ISTP",
       "date": "2024. 11. 28. 오전 03:45:46",
+      "visibility": false
+    },
+    {
+      "id": "7eec",
+      "userId": "rabit",
+      "nickname": "토끼ㄱㄱㅇㅇ",
+      "mbti": "ENFJ",
+      "date": "2024. 11. 28. 오전 10:17:34",
       "visibility": true
     }
   ]
